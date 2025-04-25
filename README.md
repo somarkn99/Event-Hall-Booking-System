@@ -23,6 +23,7 @@ The system is designed for:
 - PostgreSQL
 - DRF Simple JWT (Authentication)
 - drf-yasg (Swagger API Documentation)
+- django-filter (Search / Filter / Ordering)
 
 ---
 
@@ -36,7 +37,8 @@ The system is designed for:
 | Swagger API Documentation | ✅ Completed |
 | Roles & Permissions | ✅ Completed |
 | Role Assignment API (Admin only) | ✅ Completed |
-| Hall Management (CRUD) | 🚧 Planned |
+| Hall Management (CRUD) | ✅ Completed |
+| Filtering, Search, and Ordering | ✅ Completed |
 | Booking System | 🚧 Planned |
 | Payment System | 🚧 Planned |
 
@@ -120,6 +122,50 @@ Admins can assign roles to users using the following endpoint:
 - Admin
 - Owner
 - Customer
+
+---
+
+## 🔍 Hall Filtering API
+
+The Hall listing endpoint supports filtering, searching, and ordering.
+
+- **Endpoint:** `/api/halls/`
+
+### 🔎 Supported Filters
+
+| Parameter         | Type     | Description                          |
+|------------------|----------|--------------------------------------|
+| `location`        | string   | Filter by location                   |
+| `capacity`        | number   | Exact match of capacity              |
+| `price_per_hour`  | decimal  | Exact match of price                 |
+| `search`          | string   | Search in name, description, location |
+| `ordering`        | string   | Sort by `price_per_hour`, `capacity` |
+
+### 💡 Examples
+
+- Filter by location:
+
+  ```
+  /api/halls/?location=Erbil
+  ```
+
+- Search for keyword:
+
+  ```
+  /api/halls/?search=luxury
+  ```
+
+- Order by price ascending:
+
+  ```
+  /api/halls/?ordering=price_per_hour
+  ```
+
+- Order by capacity descending:
+
+  ```
+  /api/halls/?ordering=-capacity
+  ```
 
 ---
 
