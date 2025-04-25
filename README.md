@@ -27,6 +27,7 @@ The system is designed for:
 - Email Notifications (SMTP + HTML Templates)
 - Standardized API Responses
 - Global Exception Handling & Logging
+- Custom Pagination Format
 
 ---
 
@@ -47,6 +48,7 @@ The system is designed for:
 | Email Notification System (HTML templates) | ✅ Completed |
 | Standardized API Responses | ✅ Completed |
 | Global Exception Handling & Logging | ✅ Completed |
+| Custom Pagination Format | ✅ Completed |
 
 ---
 
@@ -80,8 +82,6 @@ All API responses follow a consistent structure:
 }
 ```
 
-This structure makes API integration much easier for frontend developers.
-
 ---
 
 ## ⚙️ Global Exception Handling
@@ -89,14 +89,29 @@ This structure makes API integration much easier for frontend developers.
 All exceptions (Authentication Errors, Validation Errors, 404 Not Found, 500 Server Errors) are handled using a global custom exception handler.  
 Unexpected server errors are logged automatically into the `/logs/error.log` file for future investigation.
 
-Example of an internal server error log:
+---
 
-```log
-ERROR 2025-04-25 22:35:19 exceptions An unhandled exception occurred
-Traceback (most recent call last):
-  File "...", line ..., in ...
-Exception: Detailed error stack trace...
+## 📄 Custom Pagination Format
+
+List APIs with pagination now return a consistent, user-friendly structure:
+
+```json
+{
+    "success": true,
+    "message": "Data retrieved successfully",
+    "data": {
+        "count": 100,
+        "next": "http://api.example.com/resource?page=2",
+        "previous": null,
+        "results": [
+            { ... },
+            { ... }
+        ]
+    }
+}
 ```
+
+This ensures smooth integration with frontend applications.
 
 ---
 
