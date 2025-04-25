@@ -25,6 +25,7 @@ The system is designed for:
 - drf-yasg (Swagger API Documentation)
 - django-filter (Search / Filter / Ordering)
 - Email Notifications (SMTP + HTML Templates)
+- Standardized API Responses
 
 ---
 
@@ -43,132 +44,47 @@ The system is designed for:
 | Booking System (CRUD and Status Management) | ✅ Completed |
 | Payment System | ✅ Completed |
 | Email Notification System (HTML templates) | ✅ Completed |
+| Standardized API Responses | ✅ Completed |
 
 ---
 
 ## 🚀 Setup Instructions
 
-1. Clone the repository:
-
-   ```bash
-   git clone https://your-repo-link.git
-   cd event_hall_booking
-   ```
-
-2. Create and activate a virtual environment:
-
-   ```bash
-   python3 -m venv venv
-   source venv/bin/activate
-   ```
-
-3. Install required packages:
-
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-4. Configure your database and email settings in `config/settings.py`:
-
-   ```python
-   DATABASES = { ... }
-   
-   EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-   EMAIL_HOST = 'smtp.gmail.com'
-   EMAIL_PORT = 587
-   EMAIL_USE_TLS = True
-   EMAIL_HOST_USER = 'your_email@example.com'
-   EMAIL_HOST_PASSWORD = 'your_email_password'
-   DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
-   ```
-
-5. Run migrations and create default roles:
-
-   ```bash
-   python manage.py makemigrations
-   python manage.py migrate
-   python manage.py create_roles
-   ```
-
-6. Start the development server:
-
-   ```bash
-   python manage.py runserver
-   ```
-
-7. Access the Swagger documentation at:
-
-   ```
-   http://127.0.0.1:8000/swagger/
-   ```
-
----
-
-## 📆 Booking System API
-
-### 📋 Available Endpoints:
-
-- **Create a booking** (Customer only):
-
-  ```
-  POST /api/bookings/create/
-  ```
-
-- **View my bookings** (Customer only):
-
-  ```
-  GET /api/bookings/my-bookings/
-  ```
-
-- **View all bookings** (Admin only):
-
-  ```
-  GET /api/bookings/all/
-  ```
-
-- **Update booking status** (Admin only):
-
-  ```
-  PATCH /api/bookings/{booking_id}/update-status/
-  ```
-
----
-
-## 💳 Payment System API
-
-### 📋 Available Endpoints:
-
-- **Create a payment** (Customer only):
-
-  ```
-  POST /api/payments/create/
-  ```
-
-- **View my payments** (Customer only):
-
-  ```
-  GET /api/payments/my-payments/
-  ```
-
-- **View all payments** (Admin only):
-
-  ```
-  GET /api/payments/all/
-  ```
+Follow the previously detailed setup instructions.
 
 ---
 
 ## 📬 Email Notification System (HTML Emails)
 
-Email notifications are sent for the following events using HTML templates:
+Email notifications are sent using Django templates for booking confirmation, booking cancellation, and payment receipt events.
 
-| Event | Email Recipient | Description |
-| :--- | :--- | :--- |
-| Booking Confirmed | Customer | HTML email with booking confirmation |
-| Booking Cancelled | Customer | HTML email with booking cancellation |
-| Payment Successful | Customer | HTML email confirming payment receipt |
+---
 
-Emails are automatically rendered using Django templates inside `/templates/emails/` and sent upon event triggers.
+## 📦 API Response Format (Standardized)
+
+All API responses follow a consistent structure:
+
+### 📋 Success Response
+
+```json
+{
+    "success": true,
+    "message": "Action completed successfully",
+    "data": { ... }
+}
+```
+
+### 📋 Error Response
+
+```json
+{
+    "success": false,
+    "message": "An error occurred",
+    "errors": { "field_name": ["error detail"] }
+}
+```
+
+This structure makes API integration much easier for frontend developers.
 
 ---
 

@@ -6,7 +6,6 @@ from accounts.permissions import IsAdmin, IsCustomer
 from bookings.models import Booking
 from utils.email import send_notification_email
 
-
 class PaymentCreateView(generics.CreateAPIView):
     queryset = Payment.objects.all()
     serializer_class = PaymentSerializer
@@ -37,14 +36,12 @@ class PaymentCreateView(generics.CreateAPIView):
             }
         )
 
-
 class MyPaymentsListView(generics.ListAPIView):
     serializer_class = PaymentSerializer
     permission_classes = [permissions.IsAuthenticated, IsCustomer]
 
     def get_queryset(self):
         return Payment.objects.filter(booking__user=self.request.user)
-
 
 class AllPaymentsListView(generics.ListAPIView):
     queryset = Payment.objects.all()
