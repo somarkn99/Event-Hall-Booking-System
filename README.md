@@ -39,7 +39,7 @@ The system is designed for:
 | Role Assignment API (Admin only) | ✅ Completed |
 | Hall Management (CRUD) | ✅ Completed |
 | Filtering, Search, and Ordering | ✅ Completed |
-| Booking System | 🚧 Planned |
+| Booking System (CRUD and Status Management) | ✅ Completed |
 | Payment System | 🚧 Planned |
 
 ---
@@ -166,6 +166,48 @@ The Hall listing endpoint supports filtering, searching, and ordering.
   ```
   /api/halls/?ordering=-capacity
   ```
+
+---
+
+## 📆 Booking System API
+
+### 📋 Available Endpoints:
+
+- **Create a booking** (Customer only):
+
+  ```
+  POST /api/bookings/create/
+  ```
+
+- **View my bookings** (Customer only):
+
+  ```
+  GET /api/bookings/my-bookings/
+  ```
+
+- **View all bookings** (Admin only):
+
+  ```
+  GET /api/bookings/all/
+  ```
+
+- **Update booking status** (Admin only):
+
+  ```
+  PATCH /api/bookings/{booking_id}/update-status/
+  ```
+
+**Statuses available:**
+- Pending
+- Confirmed
+- Cancelled
+
+### 🔒 Access Control:
+
+| Role | Permissions |
+| :--- | :----------- |
+| Customer | Create bookings, view own bookings |
+| Admin | View all bookings, update booking status |
 
 ---
 
