@@ -40,7 +40,7 @@ The system is designed for:
 | Hall Management (CRUD) | ✅ Completed |
 | Filtering, Search, and Ordering | ✅ Completed |
 | Booking System (CRUD and Status Management) | ✅ Completed |
-| Payment System | 🚧 Planned |
+| Payment System | ✅ Completed |
 
 ---
 
@@ -103,72 +103,6 @@ The system is designed for:
 
 ---
 
-## 🛡️ Role Management API
-
-Admins can assign roles to users using the following endpoint:
-
-- **POST /api/accounts/assign-role/**
-
-**Body Example:**
-
-```json
-{
-  "user_id": 5,
-  "role": "Owner"
-}
-```
-
-**Roles available:**
-- Admin
-- Owner
-- Customer
-
----
-
-## 🔍 Hall Filtering API
-
-The Hall listing endpoint supports filtering, searching, and ordering.
-
-- **Endpoint:** `/api/halls/`
-
-### 🔎 Supported Filters
-
-| Parameter         | Type     | Description                          |
-|------------------|----------|--------------------------------------|
-| `location`        | string   | Filter by location                   |
-| `capacity`        | number   | Exact match of capacity              |
-| `price_per_hour`  | decimal  | Exact match of price                 |
-| `search`          | string   | Search in name, description, location |
-| `ordering`        | string   | Sort by `price_per_hour`, `capacity` |
-
-### 💡 Examples
-
-- Filter by location:
-
-  ```
-  /api/halls/?location=Erbil
-  ```
-
-- Search for keyword:
-
-  ```
-  /api/halls/?search=luxury
-  ```
-
-- Order by price ascending:
-
-  ```
-  /api/halls/?ordering=price_per_hour
-  ```
-
-- Order by capacity descending:
-
-  ```
-  /api/halls/?ordering=-capacity
-  ```
-
----
-
 ## 📆 Booking System API
 
 ### 📋 Available Endpoints:
@@ -197,17 +131,38 @@ The Hall listing endpoint supports filtering, searching, and ordering.
   PATCH /api/bookings/{booking_id}/update-status/
   ```
 
-**Statuses available:**
-- Pending
-- Confirmed
-- Cancelled
+---
+
+## 💳 Payment System API
+
+### 📋 Available Endpoints:
+
+- **Create a payment** (Customer only):
+
+  ```
+  POST /api/payments/create/
+  ```
+
+- **View my payments** (Customer only):
+
+  ```
+  GET /api/payments/my-payments/
+  ```
+
+- **View all payments** (Admin only):
+
+  ```
+  GET /api/payments/all/
+  ```
 
 ### 🔒 Access Control:
 
 | Role | Permissions |
 | :--- | :----------- |
-| Customer | Create bookings, view own bookings |
-| Admin | View all bookings, update booking status |
+| Customer | Can only create/view their own payments |
+| Admin | Can view all payments |
+
+**Note:** Payment amount is automatically set from the booking's total price.
 
 ---
 
