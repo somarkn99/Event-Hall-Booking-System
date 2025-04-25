@@ -31,6 +31,23 @@ The system is designed for:
 
 ---
 
+
+## 🛡️ Production Security Settings
+
+This project includes advanced production security configurations to ensure maximum protection:
+
+- **SSL Redirection**: Forces all HTTP requests to redirect to HTTPS using `SECURE_SSL_REDIRECT`.
+- **HTTP Strict Transport Security (HSTS)**: Enforces secure (HTTPS) connections to the server with `SECURE_HSTS_SECONDS`, `SECURE_HSTS_INCLUDE_SUBDOMAINS`, and `SECURE_HSTS_PRELOAD`.
+- **Secure Cookies**: Session and CSRF cookies are marked as `Secure` and `HttpOnly` to protect against interception and JavaScript access.
+- **XSS Protection**: Browser-based Cross-Site Scripting protection is enabled with `SECURE_BROWSER_XSS_FILTER`.
+- **Content Sniffing Protection**: Disables browser content type sniffing with `SECURE_CONTENT_TYPE_NOSNIFF`.
+- **Environment-Based Configuration**: All security settings are dynamically controlled through environment variables using `python-decouple`.
+
+> **Important:**  
+> In production, always ensure that `DEBUG=False`, proper `ALLOWED_HOSTS` are configured, and a valid SSL certificate is installed.
+
+---
+
 ## 📈 Progress
 
 | Feature | Status |
