@@ -49,12 +49,42 @@ The system is designed for:
 | Standardized API Responses | ✅ Completed |
 | Global Exception Handling & Logging | ✅ Completed |
 | Custom Pagination Format | ✅ Completed |
-
+| .env Environment Management | ✅ Completed |
 ---
 
 ## 🚀 Setup Instructions
 
 Follow the previously detailed setup instructions for local development.
+
+
+---
+
+## 📦 Environment Variables (.env)
+
+This project uses `python-decouple` to manage environment variables.  
+You must create a `.env` file based on the provided `.env.example`.
+
+### Example `.env`:
+
+```env
+DEBUG=True
+SECRET_KEY=your_secret_key_here
+ALLOWED_HOSTS=127.0.0.1,localhost
+
+POSTGRES_DB=event_hall_db
+POSTGRES_USER=your_db_user
+POSTGRES_PASSWORD=your_db_password
+POSTGRES_HOST=db
+POSTGRES_PORT=5432
+DATABASE_URL=postgres://your_db_user:your_db_password@db:5432/event_hall_db
+
+EMAIL_BACKEND=django.core.mail.backends.smtp.EmailBackend
+EMAIL_HOST=smtp.yourprovider.com
+EMAIL_PORT=587
+EMAIL_USE_TLS=True
+EMAIL_HOST_USER=your_email@example.com
+EMAIL_HOST_PASSWORD=your_email_password
+```
 
 ---
 
