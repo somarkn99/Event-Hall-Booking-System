@@ -2,7 +2,7 @@
 # Event Hall Booking System
 
 A backend system for managing event hall bookings.  
-This project provides APIs for user registration, authentication, hall management, booking reservations, and payment handling.
+This project provides APIs for user registration, authentication, role management, hall management, booking reservations, and payment handling.
 
 ---
 
@@ -34,7 +34,8 @@ The system is designed for:
 | Custom User model creation | ✅ Completed |
 | JWT Authentication (Register / Login) | ✅ Completed |
 | Swagger API Documentation | ✅ Completed |
-| Roles & Permissions | 🚧 Coming Next |
+| Roles & Permissions | ✅ Completed |
+| Role Assignment API (Admin only) | ✅ Completed |
 | Hall Management (CRUD) | 🚧 Planned |
 | Booking System | 🚧 Planned |
 | Payment System | 🚧 Planned |
@@ -78,11 +79,12 @@ The system is designed for:
    }
    ```
 
-5. Run migrations:
+5. Run migrations and create default roles:
 
    ```bash
    python manage.py makemigrations
    python manage.py migrate
+   python manage.py create_roles
    ```
 
 6. Start the development server:
@@ -96,6 +98,28 @@ The system is designed for:
    ```
    http://127.0.0.1:8000/swagger/
    ```
+
+---
+
+## 🛡️ Role Management API
+
+Admins can assign roles to users using the following endpoint:
+
+- **POST /api/accounts/assign-role/**
+
+**Body Example:**
+
+```json
+{
+  "user_id": 5,
+  "role": "Owner"
+}
+```
+
+**Roles available:**
+- Admin
+- Owner
+- Customer
 
 ---
 
