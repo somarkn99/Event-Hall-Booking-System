@@ -54,10 +54,74 @@ The system is designed for:
 
 ## 🚀 Setup Instructions
 
-Follow the previously detailed setup instructions.
+Follow the previously detailed setup instructions for local development.
 
 ---
 
+## 🐳 Docker Development Setup
+
+### Prerequisites
+
+- Install Docker and Docker Compose on your machine.
+
+### Running the project
+
+1. Create a `requirements.txt` file if not exists:
+
+   ```bash
+   pip freeze > requirements.txt
+   ```
+
+2. Build and start the containers:
+
+   ```bash
+   docker-compose up --build
+   ```
+
+3. Access the application:
+
+   - Django app: `http://localhost:8000`
+   - PostgreSQL DB: running inside the `db` service.
+
+### Container Services
+
+| Service | Description |
+| :--- | :--- |
+| db | PostgreSQL Database (Container) |
+| web | Django Application (Container) |
+
+### Useful Commands
+
+- Enter Django container shell:
+
+  ```bash
+  docker exec -it event_hall_web bash
+  ```
+
+- Enter PostgreSQL container:
+
+  ```bash
+  docker exec -it event_hall_db psql -U your_db_user -d event_hall_db
+  ```
+
+---
+
+## 🐳 Docker Production Setup
+
+### Running the project for Production
+
+```bash
+docker-compose -f docker-compose.prod.yml up --build
+```
+
+- Services:
+  - **db**: PostgreSQL Database
+  - **web**: Django Application via Gunicorn
+  - **nginx**: Reverse proxy serving the Django app
+
+- Application accessible at: `http://your_server_ip_or_domain/`
+
+---
 ## 📦 API Response Format (Standardized)
 
 All API responses follow a consistent structure:
