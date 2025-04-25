@@ -2,6 +2,7 @@ from rest_framework import generics, permissions
 from .models import Booking
 from .serializers import BookingSerializer
 from accounts.permissions import IsAdmin, IsCustomer
+from utils.email import send_notification_email
 
 class BookingCreateView(generics.CreateAPIView):
     queryset = Booking.objects.all()
@@ -30,6 +31,21 @@ class BookingUpdateStatusView(generics.UpdateAPIView):
     lookup_field = 'pk'
 
     def partial_update(self, request, *args, **kwargs):
-        """Admin can update the status only."""
-        kwargs['partial'] = True
-        return super().partial_update(request, *args, **kwargs)
+        booking = self.get_object()
+        response = super().partial_update(request, *args, **kwargs)
+
+        new_status = request.data.get("status")
+        if new_status == "Confirmed":
+            send_notification_email(
+                to_email=booking.user.email,
+                subject="Your booking has been confirmed ✅",
+                message=f"Hello {booking.user.full_name},\n\nYour booking for {booking.hall.name} has been confirmed."
+            )
+        elif new_status == "Cancelled":
+            send_notification_email(
+                to_email=booking.user.email,
+                subject="Your booking has been cancelled ❌",
+                message=f"Hello {booking.user.full_name},\n\nYour booking for {booking.hall.name} has been cancelled."
+            )
+
+        return response

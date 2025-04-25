@@ -2,7 +2,7 @@
 # Event Hall Booking System
 
 A backend system for managing event hall bookings.  
-This project provides APIs for user registration, authentication, role management, hall management, booking reservations, and payment handling.
+This project provides APIs for user registration, authentication, role management, hall management, booking reservations, payment handling, and email notifications.
 
 ---
 
@@ -24,6 +24,7 @@ The system is designed for:
 - DRF Simple JWT (Authentication)
 - drf-yasg (Swagger API Documentation)
 - django-filter (Search / Filter / Ordering)
+- Email Notifications (SMTP)
 
 ---
 
@@ -41,6 +42,7 @@ The system is designed for:
 | Filtering, Search, and Ordering | ✅ Completed |
 | Booking System (CRUD and Status Management) | ✅ Completed |
 | Payment System | ✅ Completed |
+| Email Notification System | ✅ Completed |
 
 ---
 
@@ -66,19 +68,18 @@ The system is designed for:
    pip install -r requirements.txt
    ```
 
-4. Configure your database in `config/settings.py`:
+4. Configure your database and email settings in `config/settings.py`:
 
    ```python
-   DATABASES = {
-       'default': {
-           'ENGINE': 'django.db.backends.postgresql',
-           'NAME': 'event_hall_db',
-           'USER': 'your_db_user',
-           'PASSWORD': 'your_db_password',
-           'HOST': 'localhost',
-           'PORT': '5432',
-       }
-   }
+   DATABASES = { ... }
+   
+   EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+   EMAIL_HOST = 'smtp.gmail.com'
+   EMAIL_PORT = 587
+   EMAIL_USE_TLS = True
+   EMAIL_HOST_USER = 'your_email@example.com'
+   EMAIL_HOST_PASSWORD = 'your_email_password'
+   DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
    ```
 
 5. Run migrations and create default roles:
@@ -155,14 +156,19 @@ The system is designed for:
   GET /api/payments/all/
   ```
 
-### 🔒 Access Control:
+---
 
-| Role | Permissions |
-| :--- | :----------- |
-| Customer | Can only create/view their own payments |
-| Admin | Can view all payments |
+## 📬 Email Notification System
 
-**Note:** Payment amount is automatically set from the booking's total price.
+### 📋 Events triggering Emails:
+
+| Event | Email Recipient | Description |
+| :--- | :--- | :--- |
+| Booking Confirmed | Customer | Informs the customer that their booking is confirmed |
+| Booking Cancelled | Customer | Informs the customer that their booking is cancelled |
+| Payment Successful | Customer | Informs the customer that their payment was successful |
+
+Emails are automatically sent after each event.
 
 ---
 
