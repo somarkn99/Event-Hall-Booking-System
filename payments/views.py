@@ -26,10 +26,15 @@ class PaymentCreateView(generics.CreateAPIView):
 
         send_notification_email(
             to_email=self.request.user.email,
-            subject="Payment Confirmation 💳",
-            message=f"Hello {self.request.user.full_name},\n\n"
-                    f"We have successfully received your payment of {payment.amount} "
-                    f"for booking #{booking.id} ({booking.hall.name}).\n\nThank you!"
+            subject="Payment Confirmation",
+            template_name='emails/payment_received.html',
+            context={
+                'user_name': self.request.user.full_name,
+                'amount': payment.amount,
+                'booking_id': booking.id,
+                'hall_name': booking.hall.name,
+                'plain_message': f"Hello {self.request.user.full_name},\n\nYour payment for booking #{booking.id} has been received successfully."
+            }
         )
 
 

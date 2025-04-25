@@ -38,14 +38,23 @@ class BookingUpdateStatusView(generics.UpdateAPIView):
         if new_status == "Confirmed":
             send_notification_email(
                 to_email=booking.user.email,
-                subject="Your booking has been confirmed ✅",
-                message=f"Hello {booking.user.full_name},\n\nYour booking for {booking.hall.name} has been confirmed."
+                subject="Your Booking Confirmation",
+                template_name='emails/booking_confirmed.html',
+                context={
+                    'user_name': booking.user.full_name,
+                    'hall_name': booking.hall.name,
+                    'plain_message': f"Hello {booking.user.full_name},\n\nYour booking for {booking.hall.name} has been confirmed."
+                }
             )
         elif new_status == "Cancelled":
             send_notification_email(
                 to_email=booking.user.email,
-                subject="Your booking has been cancelled ❌",
-                message=f"Hello {booking.user.full_name},\n\nYour booking for {booking.hall.name} has been cancelled."
+                subject="Your Booking Cancellation",
+                template_name='emails/booking_cancelled.html',
+                context={
+                    'user_name': booking.user.full_name,
+                    'hall_name': booking.hall.name,
+                    'plain_message': f"Hello {booking.user.full_name},\n\nYour booking for {booking.hall.name} has been cancelled."
+                }
             )
-
         return response

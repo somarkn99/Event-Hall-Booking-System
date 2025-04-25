@@ -24,7 +24,7 @@ The system is designed for:
 - DRF Simple JWT (Authentication)
 - drf-yasg (Swagger API Documentation)
 - django-filter (Search / Filter / Ordering)
-- Email Notifications (SMTP)
+- Email Notifications (SMTP + HTML Templates)
 
 ---
 
@@ -42,7 +42,7 @@ The system is designed for:
 | Filtering, Search, and Ordering | ✅ Completed |
 | Booking System (CRUD and Status Management) | ✅ Completed |
 | Payment System | ✅ Completed |
-| Email Notification System | ✅ Completed |
+| Email Notification System (HTML templates) | ✅ Completed |
 
 ---
 
@@ -158,17 +158,17 @@ The system is designed for:
 
 ---
 
-## 📬 Email Notification System
+## 📬 Email Notification System (HTML Emails)
 
-### 📋 Events triggering Emails:
+Email notifications are sent for the following events using HTML templates:
 
 | Event | Email Recipient | Description |
 | :--- | :--- | :--- |
-| Booking Confirmed | Customer | Informs the customer that their booking is confirmed |
-| Booking Cancelled | Customer | Informs the customer that their booking is cancelled |
-| Payment Successful | Customer | Informs the customer that their payment was successful |
+| Booking Confirmed | Customer | HTML email with booking confirmation |
+| Booking Cancelled | Customer | HTML email with booking cancellation |
+| Payment Successful | Customer | HTML email confirming payment receipt |
 
-Emails are automatically sent after each event.
+Emails are automatically rendered using Django templates inside `/templates/emails/` and sent upon event triggers.
 
 ---
 
