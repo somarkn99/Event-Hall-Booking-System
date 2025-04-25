@@ -26,6 +26,7 @@ The system is designed for:
 - django-filter (Search / Filter / Ordering)
 - Email Notifications (SMTP + HTML Templates)
 - Standardized API Responses
+- Global Exception Handling & Logging
 
 ---
 
@@ -45,18 +46,13 @@ The system is designed for:
 | Payment System | ✅ Completed |
 | Email Notification System (HTML templates) | ✅ Completed |
 | Standardized API Responses | ✅ Completed |
+| Global Exception Handling & Logging | ✅ Completed |
 
 ---
 
 ## 🚀 Setup Instructions
 
 Follow the previously detailed setup instructions.
-
----
-
-## 📬 Email Notification System (HTML Emails)
-
-Email notifications are sent using Django templates for booking confirmation, booking cancellation, and payment receipt events.
 
 ---
 
@@ -85,6 +81,22 @@ All API responses follow a consistent structure:
 ```
 
 This structure makes API integration much easier for frontend developers.
+
+---
+
+## ⚙️ Global Exception Handling
+
+All exceptions (Authentication Errors, Validation Errors, 404 Not Found, 500 Server Errors) are handled using a global custom exception handler.  
+Unexpected server errors are logged automatically into the `/logs/error.log` file for future investigation.
+
+Example of an internal server error log:
+
+```log
+ERROR 2025-04-25 22:35:19 exceptions An unhandled exception occurred
+Traceback (most recent call last):
+  File "...", line ..., in ...
+Exception: Detailed error stack trace...
+```
 
 ---
 
